@@ -1,7 +1,25 @@
 docker images
 docker image list
 docker history <image>
+docker exec -it <image> sh
 + .dockerignore with dockerfile
+docker compose config # with docker-compose.yaml in directory
+
+#analizatory obrazów
+docker run --rm -v /var/run/docker.sock:/var/run/docker.sock \
+goodwithtech/dockle <IMAGE>
+docker run --rm -i hadolint/hadolint < Dockerfile
+
+#podpisanie obrazu kluczem i zabezpieczenie man in the middle
+https://github.com/sigstore/cosign
+
+#bazowy obraz distroless bez sh
+https://github.com/GoogleContainerTools/distroless
+#alpine - może być problem z rozwiązywaniem problemów z rozwiązaniem nazw DSN + bez glibc jest mniej wydajny
+
+#skan bezpieczeństwa obrazu trivy / podatności w tym binarki z bibliotekami
+ /var/run/docker.sock:/var/run/docker.sock \
+aquasec/trivy image IMAG
 
 
 CMD/ENTRYPOINT executed when running container (not building)
