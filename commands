@@ -6,7 +6,7 @@ docker exec -it <image> sh
 docker stats
 docker kill $(docker ps -q) #zatrzymujemy wszystkie kontenery
 docker system prune -a --volumes #usunie wszystkie zatrzymane kontenery, nieuzywane sieci/obrazy, anonimowe volumeny, build cache
-docker volume prune -a #usunie wszystkie volumeny
+docker volume prune -a #usunie wszystkie volumeny 
 
 + .dockerignore with dockerfile
 docker compose config # with docker-compose.yaml in directory
