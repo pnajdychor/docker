@@ -1,9 +1,26 @@
 docker images
 docker image list
+docker inspect <image> #LogPath
 docker history <image>
 docker exec -it <image> sh
+docker stats
+docker kill $(docker ps -q) #zatrzymujemy wszystkie kontenery
+docker system prune -a --volumes #usunie wszystkie zatrzymane kontenery, nieuzywane sieci/obrazy, anonimowe volumeny, build cache
+docker volume prune -a #usunie wszystkie volumeny
+
 + .dockerignore with dockerfile
 docker compose config # with docker-compose.yaml in directory
+
+#nakładka graficzna
+Portainer.io
+
+https://docs.docker.com/engine/containers/resource_constraints/
+
+# skan bezpieczeństwa zabezpieczenia dockera na hoście z kontenerami
+https://github.com/docker/docker-bench-security
+
+#testowanie limitów
+https://github.com/monitoringartist/docker-killer
 
 #analizatory obrazów
 docker run --rm -v /var/run/docker.sock:/var/run/docker.sock \
@@ -21,7 +38,7 @@ https://github.com/GoogleContainerTools/distroless
  /var/run/docker.sock:/var/run/docker.sock \
 aquasec/trivy image IMAG
 
-
+# kilka kontenerow zajmujacych ten sam port -> reverse-proxy traefik
 CMD/ENTRYPOINT executed when running container (not building)
 
 -- No ENTRYPOINT
@@ -45,10 +62,32 @@ CMD/ENTRYPOINT executed when running container (not building)
 ╟────────────────────────────╫─────────────────────────────────────────────────╢
 ║ CMD exec_cmd p1_cmd        ║ exec_entry p1_entry /bin/sh -c exec_cmd p1_cmd  ║
 ╚════════════════════════════╩═════════════════════════════════════════════════╝
-
 -- ENTRYPOINT exec_entry p1_entry
 ╔════════════════════════════╦══════════════════════════════════╗
 ║ No matter                  ║ /bin/sh -c exec_entry p1_entry   ║
 ╚════════════════════════════╩══════════════════════════════════╝
+
+# Best practices (not only for production)
+•  Removing any volume bindings for application code, so that code stays inside
+the container and can't be changed from outside
+• Binding to different ports on the host
+• Specifying a restart policy like restart: always to avoid downtime
+• Configure logs!
+• Adding extra services such as a log agregator
+• Limit resources – should I?
+• Consider using secrets
+• Security Scans
+• Run only containers on host
+• No root
+• User namespace remapping
+• Read only file system (--read-only)
+• No shell in the images
+• Where your data is persisted (volumes)
+• Keep images small (no extra packages)
+• Use .dockerignore and multistage builds where it makes sense
+• Rootless mode
+• Use signed images (content trust)
+• Monitor
+
 
 
